@@ -1,0 +1,14 @@
+// Icons
+@import '~@coreui/icons/css/brand.css';
+@import '~@coreui/icons/css/free.css';
+
+// Core UI 4
+@import "~@coreui/coreui/scss/coreui";
+@import "~simplebar/dist/simplebar.css";
+
+.wrapper {
+    width: 100%;
+    @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+    will-change: auto;
+    @include transition(padding .15s);
+}
