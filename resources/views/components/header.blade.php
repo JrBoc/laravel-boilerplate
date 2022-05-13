@@ -33,18 +33,22 @@
             </li>
         </ul>
     </div>
-    <div class="header-divider"></div>
-    <div class="container-fluid">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb my-0 ms-2">
-                <li class="breadcrumb-item">
-                    <a href="#">Main</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a href="#">Module</a>
-                </li>
-                <li class="breadcrumb-item active"><span>Module Item</span></li>
-            </ol>
-        </nav>
-    </div>
+    @if(session()->has('breadcrumbs'))
+        <div class="header-divider"></div>
+        <div class="container-fluid">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb my-0 ms-2">
+                    @foreach(session('breadcrumbs.parent') as $link => $name)
+                        <li class="breadcrumb-item">
+                            <a href="{{ $link }}">{{ $name }}</a>
+                        </li>
+                    @endforeach
+                    <li class="breadcrumb-item active"><span>{{ session('breadcrumbs.pageName') }}</span></li>
+                </ol>
+            </nav>
+        </div>
+        @php
+            session()->remove('breadcrumbs')
+        @endphp
+    @endif
 </header>

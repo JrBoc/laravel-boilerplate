@@ -6,7 +6,7 @@
     {{ $attributes->class('form-group') }}
 >
     @if($label)
-        <label x-bind:for="$id('input')">
+        <label x-bind:for="$id('input')" class="form-label">
             {{ $label }}: {!! $required ? '<strong class="text-danger">*</strong>' : '' !!}
         </label>
     @endif
