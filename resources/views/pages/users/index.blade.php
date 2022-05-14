@@ -13,7 +13,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div><strong>Users</strong></div>
                             <div>
-                                <button class="btn btn-outline-primary">Create</button>
+                                <a href="{{ route('users.create') }}" class="btn btn-outline-primary">Create</a>
                             </div>
                         </div>
                     </div>
@@ -40,9 +40,9 @@
                                         {{ $user->email }}
                                     </td>
                                     <td style="width: 1%" class="text-nowrap align-middle">
-                                        <button class="btn btn-outline-primary">
-                                            Edit
-                                        </button>
+                                        <a href="{{ route('users.show', $user) }}" class="btn btn-outline-primary">
+                                            View
+                                        </a>
                                     </td>
                                 </tr>
                             @empty

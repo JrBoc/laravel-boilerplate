@@ -16,7 +16,8 @@
         </ul>
         <ul class="header-nav ms-3">
             <li class="nav-item dropdown">
-                <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link py-0 d-flex align-items-center" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    {{ auth()->user()?->name }}
                     <div class="avatar avatar-md"><i class="cil-user icon icon-lg"></i></div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end shadow border-0">
@@ -38,6 +39,9 @@
         <div class="container-fluid">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb my-0 ms-2">
+                    <li class="breadcrumb-item">
+                        <a href="#"><i class="icon cil-home"></i></a>
+                    </li>
                     @foreach(session('breadcrumbs.parent') as $link => $name)
                         <li class="breadcrumb-item">
                             <a href="{{ $link }}">{{ $name }}</a>

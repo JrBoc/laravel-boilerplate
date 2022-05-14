@@ -9,7 +9,10 @@
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
         <li class="nav-item">
-            <a class="nav-link" href="#"><i class="nav-icon cil-speedometer"></i>Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a>
+            <a class="nav-link" href="{{ route('dashboard.index') }}"><i class="nav-icon cil-speedometer"></i>Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.index') }}"><i class="nav-icon cil-group"></i>Users</a>
         </li>
         <li class="nav-title">Group #1</li>
         <li class="nav-item">
