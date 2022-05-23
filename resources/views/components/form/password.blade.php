@@ -1,5 +1,5 @@
 @aware(['error', 'required'])
-@props(['error' => null])
+@props(['error' => null, 'required' => null])
 
 <div
     {{ $attributes->class('input-group') }}

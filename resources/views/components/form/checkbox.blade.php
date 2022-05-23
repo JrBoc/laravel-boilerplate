@@ -1,4 +1,4 @@
-@props(['name' => null, 'error' => null, 'required' => false, 'old' => false])
+@props(['name' => null, 'error' => null, 'required' => false, 'checked' => false, 'value' => null, 'disabled' => false])
 <div
     x-data
     x-id="['input']"
@@ -11,11 +11,21 @@
         class="form-check-input"
         type="checkbox"
         x-bind:id="$id('input')"
+        value="{{ $value ?? 'on' }}"
         {{ $required ? 'required="required"' : '' }}
-        {{ isset($name) && $old === true && old($name) ? 'checked="checked"' : '' }}
+        {{ $checked ? 'checked="checked"' : '' }}
+        @if($disabled)
+            disabled="disabled" style="opacity: 1"
+        @endif
     >
     @if($slot)
-        <label class="form-check-label" x-bind:for="$id('input')">
+        <label
+            class="form-check-label"
+            x-bind:for="$id('input')"
+            @if($disabled)
+                style="opacity: 1"
+            @endif
+        >
             {{ $slot }}
         </label>
     @endif

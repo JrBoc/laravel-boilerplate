@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Users\StoreRequest;
 use App\Http\Requests\Users\UpdateRequest;
+use App\Models\Role;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -22,28 +23,32 @@ class UsersController extends Controller
         set_breadcrumbs(pageName: 'Users');
 
         return view('pages.users.index', [
-            'users' => User::query()->paginate(10),
-        ]);
-    }
-
-    public function store(StoreRequest $request)
-    {
-        User::create($request->safe([
-            'name',
-            'email',
-            'password',
-        ]));
-
-        return back()->with([
-            'success' => 'User successfully created.',
+            'users' => User::query()->with('roles')->paginate(10),
         ]);
     }
 
     public function create()
     {
-        set_breadcrumbs($this->breadcrumbs, 'Create User');
-        
-        return view('pages.users.create');
+        set_breadcrumbs($this->breadcrumbs, 'Create');
+
+        return view('pages.users.create', [
+            'roles' => Role::pluck('name', 'id'),
+        ]);
+    }
+
+    public function store(StoreRequest $request)
+    {
+        $user = User::create($request->safe([
+            'name',
+            'email',
+            'password',
+        ]));
+
+        $user->syncRoles($request->safe(['role'])['role']);
+
+        return back()->with([
+            'success' => 'User successfully created.',
+        ]);
     }
 
     public function show(User $user)
@@ -51,7 +56,7 @@ class UsersController extends Controller
         set_breadcrumbs($this->breadcrumbs, $user->id);
 
         return view('pages.users.show', [
-            'user' => $user,
+            'user' => $user->load('roles'),
         ]);
     }
 
@@ -59,10 +64,11 @@ class UsersController extends Controller
     {
         set_breadcrumbs($this->breadcrumbs + [
                 route('users.show', $user->id) => $user->id,
-            ], 'Edit User');
+            ], 'Edit');
 
         return view('pages.users.edit', [
-            'user' => $user,
+            'user' => $user->load('roles'),
+            'roles' => Role::pluck('name', 'id'),
         ]);
     }
 
@@ -78,6 +84,8 @@ class UsersController extends Controller
                 'password',
             ]));
         }
+
+        $user->syncRoles($request->safe(['role'])['role']);
 
         return back()->with([
             'success' => 'User successfully updated.',
