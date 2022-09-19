@@ -28,6 +28,8 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: PHP Insights Action
+      uses: stefanzweifel/phpinsights-action@v1.1.1
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
